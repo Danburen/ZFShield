@@ -80,7 +80,11 @@ echo "<!DOCTYPE html>
 
 	<br />
 
-	<p><img src=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/images/login_logo.png\" /></p>
+	<div id=\"title\">
+	
+	<img id=\"titleimg\" src=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/images/login_logo.png\" />
+	<span id=\"text\">ZF Shield</span>
+	</div>
 
 	<br />
 
@@ -107,18 +111,9 @@ echo "<!DOCTYPE html>
 
 	</form>
 
-	<br />
 
 	{$messagesHtml}
 
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
 
 	<!-- <img src=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/images/RandomStorm.png\" /> -->
 	</div > <!--<div id=\"content\">-->

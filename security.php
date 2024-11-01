@@ -6,7 +6,7 @@ require_once DVWA_WEB_PAGE_TO_ROOT . 'dvwa/includes/dvwaPage.inc.php';
 dvwaPageStartup(array('authenticated'));
 
 $page = dvwaPageNewGrab();
-$page['title'] = 'DVWA 安全设置' . $page['title_separator'] . $page['title'];
+$page['title'] = 'ZF Shield 安全设置' . $page['title_separator'] . $page['title'];
 $page['page_id'] = 'security';
 
 $securityHtml = '';
@@ -51,7 +51,7 @@ generateSessionToken();
 
 $page['body'] .= "
 <div class=\"body_padded\">
-    <h1>DVWA 安全设置 <img src=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/images/lock.png\" /></h1>
+    <h1>ZF Shield 安全设置 <img src=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/images/lock.png\" /></h1>
     <br />
 
     <h2>安全级别</h2>
@@ -60,13 +60,12 @@ $page['body'] .= "
 
     <form action=\"#\" method=\"POST\">
         {$securityLevelHtml}
-        <p>您可以将安全级别设置为低、中、高或不可能。安全级别将改变 DVWA 的漏洞级别：</p>
+        <p>您可以将安全级别设置为低、中、高或不可能。安全级别将改变 ZF Shield 的漏洞级别：</p>
         <ol>
             <li>低 - 此安全级别完全脆弱，并且<em>没有任何安全措施</em>。它的用途是作为糟糕编码实践中网络应用漏洞的示例，并作为教学或学习基本利用技术的平台。</li>
-            <li>中 - 此设置主要是为了向用户提供<em>糟糕安全实践</em>的示例，开发者尝试但未能保护应用程序。这也是用户精炼其利用技术的挑战。</li>
+            <li>中 - 此设置主要是为了向用户提供<em>错误的安全实践</em>的示例，开发者尝试但未能保护应用程序。这也是用户精炼其利用技术的挑战。</li>
             <li>高 - 此选项是中等难度的扩展，混合了<em>更难或替代的糟糕实践</em>来尝试保护代码。该漏洞可能不允许相同程度的利用，类似于各种 Capture The Flags (CTFs) 竞赛。</li>
-            <li>不可能 - 此级别应<em>防止所有漏洞</em>。它用于比较易受攻击的源代码与安全源代码。<br />
-                在 DVWA v1.9 之前，此级别被称为“高”。</li>
+            <li>不可能 - 此级别应<em>防止所有漏洞</em>。它用于比较易受攻击的源代码与安全源代码。<br /></li>
         </ol>
         <select name=\"security\">
             {$securityOptionsHtml}

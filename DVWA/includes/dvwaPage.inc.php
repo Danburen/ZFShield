@@ -125,7 +125,7 @@ function dvwaCurrentUser() {
 
 function &dvwaPageNewGrab() {
 	$returnArray = array(
-		'title'           => 'Damn Vulnerable Web Application (DVWA)',
+		'title'           => 'ZF Shield (ZFS)',
 		'title_separator' => ' :: ',
 		'body'            => '',
 		'page_id'         => '',
@@ -227,7 +227,7 @@ function dvwaHtmlEcho( $pPage ) {
 		$menuBlocks[ 'home' ][] = array( 'id' => 'setup', 'name' => 'Setup / Reset DB', 'url' => 'setup.php' );
 	}
 	else {
-		$menuBlocks[ 'home' ][] = array( 'id' => 'setup', 'name' => 'Setup DVWA', 'url' => 'setup.php' );
+		$menuBlocks[ 'home' ][] = array( 'id' => 'setup', 'name' => 'Setup ZFShield', 'url' => 'setup.php' );
 		$menuBlocks[ 'home' ][] = array( 'id' => 'instructions', 'name' => 'Instructions', 'url' => 'instructions.php' );
 	}
 
@@ -255,7 +255,7 @@ function dvwaHtmlEcho( $pPage ) {
 
 	$menuBlocks[ 'meta' ] = array();
 	if( dvwaIsLoggedIn() ) {
-		$menuBlocks[ 'meta' ][] = array( 'id' => 'security', 'name' => 'DVWA Security', 'url' => 'security.php' );
+		$menuBlocks[ 'meta' ][] = array( 'id' => 'security', 'name' => 'ZFS Security', 'url' => 'security.php' );
 		$menuBlocks[ 'meta' ][] = array( 'id' => 'phpinfo', 'name' => 'PHP Info', 'url' => 'phpinfo.php' );
 	}
 	$menuBlocks[ 'meta' ][] = array( 'id' => 'about', 'name' => 'About', 'url' => 'about.php' );
@@ -265,16 +265,41 @@ function dvwaHtmlEcho( $pPage ) {
 		$menuBlocks[ 'logout' ][] = array( 'id' => 'logout', 'name' => 'Logout', 'url' => 'logout.php' );
 	}
 
-	$menuHtml = '<ul class="menuBlocks">'; // 只创建一个<ul>
+	$menuHtml = '<ul class="menuBlocks">'; // 创建一个<ul>
+	$count = 0; // 计数器
 
 	foreach( $menuBlocks as $menuBlock ) {
-    	foreach( $menuBlock as $menuItem ) {
-        	$selectedClass = ( $menuItem[ 'id' ] == $pPage[ 'page_id' ] ) ? 'selected' : '';
-        	$fixedUrl = DVWA_WEB_PAGE_TO_ROOT . $menuItem[ 'url' ];
-        	$menuHtml .= "<li class=\"{$selectedClass}\"><a href=\"{$fixedUrl}\">{$menuItem[ 'name' ]}</a></li>\n";
-    	}
+		foreach( $menuBlock as $menuItem ) {
+			$selectedClass = ( $menuItem['id'] == $pPage['page_id'] ) ? 'selected' : '';
+			$fixedUrl = DVWA_WEB_PAGE_TO_ROOT . $menuItem['url'];
+			$menuHtml .= "<li class=\"{$selectedClass}\"><a href=\"{$fixedUrl}\">{$menuItem['name']}</a></li>\n";
+
+			$count++;
+		}
 	}
-	$menuHtml .= '</ul>'; // 关闭<ul>
+
+// 在这里插入逻辑，确保只有两行，假设总共显示8个菜单项
+	$itemsPerRow = ceil($count / 2); // 计算每行显示的菜单项数量
+
+// 重新构建菜单 HTML，使其分为两行
+	$menuHtml = '<ul class="menuBlocks">';
+	$count = 0; // 重置计数器
+
+	foreach( $menuBlocks as $menuBlock ) {
+		foreach( $menuBlock as $menuItem ) {
+			$selectedClass = ( $menuItem['id'] == $pPage['page_id'] ) ? 'selected' : '';
+			$fixedUrl = DVWA_WEB_PAGE_TO_ROOT . $menuItem['url'];
+			$menuHtml .= "<li class=\"{$selectedClass}\"><a href=\"{$fixedUrl}\">{$menuItem['name']}</a></li>\n";
+
+			$count++;
+			// 在每行的最后一个菜单项后插入一个换行
+			if ($count % $itemsPerRow == 0 && $count < $itemsPerRow * 2) {
+				$menuHtml .= '</ul><ul class="menuBlocks">'; // 关闭当前<ul>并开始新的<ul>
+			}
+		}
+	}
+
+// 关闭最后一个<ul>
 
 
 
@@ -324,7 +349,7 @@ function dvwaHtmlEcho( $pPage ) {
 
 	echo "<!DOCTYPE html>
 
-<html lang=\"en-GB\">
+<html lang=\"zn-CN\">
 
 	<head>
 		<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
@@ -343,9 +368,10 @@ function dvwaHtmlEcho( $pPage ) {
 		<div id=\"container\">
 
 			<div id=\"header\">
-
-				<img src=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/images/logo.png\" alt=\"Damn Vulnerable Web Application\" />
-
+				<div id = \"title\">
+					<img id = \"titleimg\" src=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/images/logo.png\" alt=\"智防盾牌\" />
+					<span id =\"text\">智防盾牌</span>
+				</div>
 			</div>
 
 			<div id=\"main_menu\">
@@ -373,7 +399,7 @@ function dvwaHtmlEcho( $pPage ) {
 
 			<div id=\"footer\">
 
-				<p>Damn Vulnerable Web Application (DVWA)</p>
+				<p>ZF Shield(ZFS)</p>
 				<script src='" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/js/add_event_listeners.js'></script>
 
 			</div>
